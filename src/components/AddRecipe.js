@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
 
@@ -29,12 +29,13 @@ class AddRecipe extends Component {
     })
   }
 
-  submitRecipe(){
+  submitRecipe(){    
     this.props.addNewRecipe(this.state);
     this.setState({
       title: '',
       body: ''
     })
+    browserHistory.push('/')
   }
 
   render(){
@@ -74,7 +75,6 @@ class AddRecipe extends Component {
 /*
 TO DO:
   1. when button is clicked go back to '/' route
-  2. render the stuff from the redux state to the '/' page
 */
 
 const mapStateToProps = (state) => {
