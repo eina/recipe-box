@@ -2,6 +2,7 @@
   "name": "recipe-box",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://shy-moon-7250.herokuapp.com/",
   "dependencies": {
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.8",
