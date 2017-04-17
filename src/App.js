@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 // components
 import RecipeList from './components/RecipeList'
@@ -26,12 +27,19 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <div className="App">
-        <h1>Recipe Box</h1>
-        <RecipeList recipes={this.state.recipes} />
+        <header>
+          <h1>Recipe Box</h1>
+          <nav>
+            <Link to="/add" className="btn btn-primary">Add Recipe</Link>
+          </nav>
+        </header>        
+
+        <main>
+          <RecipeList recipes={this.state.recipes} />
+        </main>        
       </div>
     );
   }
