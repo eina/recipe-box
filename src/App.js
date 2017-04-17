@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 // components
 import RecipeList from './components/RecipeList'
@@ -8,22 +9,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      recipes: [
-        {
-          title: 'Beef Stew',
-          body: 'Hello I am text'
-        }, {
-          title: 'Mashed Potatoes',
-          body: 'maybe some potatoes, some cream, some salt and pepper'
-        }, {
-          title: 'Daim Chocolate Torte',
-          body: 'just buy it from IKEA'
-        }, {
-          title: 'Turkey Salad with Avocado',
-          body: 'turkey, salad greens, avocado, cherry tomatoes, balsamic vinaigrette'
-        },
-        
-      ]
+      recipes: []
     }
   }
 
@@ -38,11 +24,17 @@ class App extends Component {
         </header>        
 
         <main>
-          <RecipeList recipes={this.state.recipes} />
+          <RecipeList recipes={this.props.recipes} />
         </main>        
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    recipes: state
+  }  
+}
+
+export default connect(mapStateToProps, null)(App);
