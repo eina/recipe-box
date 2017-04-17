@@ -1,8 +1,43 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { dispatch } from 'redux';
+import { connect } from 'react-redux';
+
+
+import { addRecipe } from '../actions'
 
 class AddRecipe extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      id: null,
+      title: '',
+      body: ''
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitRecipe = this.submitRecipe.bind(this);
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    })
+  }
+
+  submitRecipe(){
+    this.props.addNewRecipe(this.state);
+    this.setState({
+      title: '',
+      body: ''
+    })
+  }
+
   render(){
     return (
       <div>
@@ -13,19 +48,42 @@ class AddRecipe extends Component {
         <main>
           <FormGroup>
             <ControlLabel>Title</ControlLabel>
-            <FormControl placeholder="What is your recipe called?"></FormControl>
+            <FormControl 
+              name="title"
+              value={this.state.title}
+              onChange={this.handleInputChange}
+              placeholder="What is your recipe called?">
+            </FormControl>
           </FormGroup>
 
           <FormGroup>
             <ControlLabel>Ingredients</ControlLabel>
-            <FormControl placeholder="What's in your recipe?" componentClass="textarea"></FormControl>
+            <FormControl 
+              name="body"
+              value={this.state.body}
+              onChange={this.handleInputChange}
+              placeholder="What's in your recipe?" componentClass="textarea"></FormControl>
           </FormGroup>      
 
-          <Button>Add Recipe</Button>
+          <Button onClick={this.submitRecipe}>Add Recipe</Button>
         </main>        
       </div>
     )
   }
 }
 
-export default AddRecipe;
+const mapStateToProps = (state) => {
+  return {
+    recipe: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNewRecipe: (recipe) => {
+      dispatch(addRecipe(recipe))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);
